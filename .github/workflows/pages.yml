@@ -1,0 +1,49 @@
+name: Verify and publish
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Verify changed digests
+        run: |
+          before="${{ github.event.before }}"
+          if [ -z "$before" ] || ! git cat-file -e "$before" 2>/dev/null; then
+            before=$(git hash-object -t tree /dev/null)
+          fi
+          changed=$(git diff --name-only --diff-filter=AM "$before" HEAD -- 'digests/*.md')
+          if [ -n "$changed" ]; then python3 scripts/verify.py $changed; else echo "No digest changes"; fi
+      - run: python3 scripts/build.py --out _site
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
