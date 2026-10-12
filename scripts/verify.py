@@ -7,7 +7,10 @@
   - каждая цитата из архива дословно встречается на своей странице;
   - каждая ссылка в выпуске открывается (HTTP < 400).
 
-Выход 1 и список проблем по карточкам, если что-то не прошло.
+Выход 1 и список проблем по карточкам, если что-то не прошло. Сетевой сбой
+(таймаут, обрыв) после повторов — только предупреждение «!»: он не доказывает,
+что ссылка мёртвая. Несуществующий домен, HTTP 4xx/5xx и цитата, которой нет на
+загруженной странице, — провал.
 Использование: python3 scripts/verify.py digests/2026-10-12.md [...]
 """
 
@@ -56,8 +59,10 @@ def _get(url: str, timeout: int) -> tuple[int, str]:
             raw = resp.read(8_000_000)
     except urllib.error.HTTPError as e:
         return e.code, ""
-    except Exception as e:  # noqa: BLE001 — любая сетевая ошибка = непроверяемо
-        return 0, str(e)
+    except Exception as e:  # noqa: BLE001
+        # Несуществующий домен — провал (-1); таймаут или обрыв — сбой сети (0).
+        dead = re.search(r"Name or service not known|nodename nor servname|getaddrinfo failed|No address associated", str(e))
+        return (-1 if dead else 0), str(e)
     if "pdf" in ctype:
         return status, ""
     body = raw.decode("utf-8", "replace")
@@ -68,15 +73,14 @@ def _get(url: str, timeout: int) -> tuple[int, str]:
 
 
 def _github_fallback(url: str) -> tuple[int, str] | None:
-    """github.com отдаёт 403 облачным IP: проверяем репозиторий через API, текст — по README."""
+    """github.com и его API отдают 403 облачным IP: репозиторий и текст проверяем по README."""
     m = re.match(r"https://github\.com/([\w.-]+)/([\w.-]+)/?$", url)
     if not m:
         return None
     owner, repo = m.groups()
-    status, _ = _get(f"https://api.github.com/repos/{owner}/{repo}", 25)
+    status, readme = _get(f"https://raw.githubusercontent.com/{owner}/{repo}/HEAD/README.md", 25)
     if status != 200:
         return None
-    _, readme = _get(f"https://raw.githubusercontent.com/{owner}/{repo}/HEAD/README.md", 25)
     # Markdown-выделение (**…**, `…`) на странице GitHub не видно — убираем и тут.
     return 200, re.sub(r"\s+", " ", re.sub(r"[*_`]", "", readme))
 
@@ -86,9 +90,11 @@ def fetch(url: str) -> tuple[int, str]:
     if url in _cache:
         return _cache[url]
     result = _get(url, 25)
-    if result[0] == 0 or result[0] in (429, 502, 503, 504):
-        # Российские сайты из зарубежного облака иногда отвечают с большой задержкой.
-        result = _get(url, 60)
+    for timeout in (45, 60):
+        # Российские сайты из зарубежного облака отвечают нестабильно — повторяем.
+        if result[0] != 0 and result[0] not in (429, 502, 503, 504):
+            break
+        result = _get(url, timeout)
     if result[0] in (403, 429):
         result = _github_fallback(url) or result
     _cache[url] = result
@@ -103,8 +109,9 @@ def card_of(text: str, pos: int) -> str:
     return text[head + 5 : text.find("\n", head + 5)].strip()
 
 
-def verify(path: Path, archive: list[dict]) -> list[str]:
-    problems = []
+def verify(path: Path, archive: list[dict]) -> tuple[list[str], list[str]]:
+    """(проблемы — сигнал удаляется, предупреждения — сбой сети, проверить не удалось)."""
+    problems, warnings = [], []
     date = path.stem
     text = path.read_text(encoding="utf-8")
     records = [r for r in archive if r.get("digest_date") == date]
@@ -129,15 +136,20 @@ def verify(path: Path, archive: list[dict]) -> list[str]:
 
     for rid, q in quotes:
         status, page = fetch(q["url"])
-        if not page or norm(q["text"]) not in page:
-            why = "страница недоступна" if status == 0 or status >= 400 else "цитата не найдена на странице"
-            problems.append(f"архив {rid}: {why} (HTTP {status}): {q['url']}")
+        if status == 0:
+            warnings.append(f"архив {rid}: сбой сети, цитату проверить не удалось: {q['url']}")
+        elif status < 0 or status >= 400:
+            problems.append(f"архив {rid}: страница недоступна (HTTP {status}): {q['url']}")
+        elif norm(q["text"]) not in page:
+            problems.append(f"архив {rid}: цитата не найдена на странице: {q['url']}")
 
     for url, pos in links.items():
-        status, err = fetch(url)
-        if status == 0 or status >= 400:
+        status, _ = fetch(url)
+        if status == 0:
+            warnings.append(f"{card_of(text, pos)}: сбой сети, ссылку проверить не удалось: {url}")
+        elif status < 0 or status >= 400:
             problems.append(f"{card_of(text, pos)}: ссылка не открывается (HTTP {status}): {url}")
-    return problems
+    return problems, warnings
 
 
 def main() -> int:
@@ -160,7 +172,7 @@ def main() -> int:
     if dupes:
         print(f"архив: повторяющиеся id: {', '.join(sorted(dupes))}")
     for path in paths:
-        problems = verify(path, archive)
+        problems, warnings = verify(path, archive)
         if problems:
             failed = True
             print(f"✗ {path}")
@@ -168,6 +180,8 @@ def main() -> int:
                 print(f"  - {p}")
         else:
             print(f"✓ {path}")
+        for w in warnings:
+            print(f"  ! {w}")
     return 1 if failed else 0
 
 
