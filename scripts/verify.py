@@ -77,7 +77,8 @@ def _github_fallback(url: str) -> tuple[int, str] | None:
     if status != 200:
         return None
     _, readme = _get(f"https://raw.githubusercontent.com/{owner}/{repo}/HEAD/README.md", 25)
-    return 200, readme
+    # Markdown-выделение (**…**, `…`) на странице GitHub не видно — убираем и тут.
+    return 200, re.sub(r"\s+", " ", re.sub(r"[*_`]", "", readme))
 
 
 def fetch(url: str) -> tuple[int, str]:
