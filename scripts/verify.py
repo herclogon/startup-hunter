@@ -47,29 +47,49 @@ def norm(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip().lower()
 
 
-def fetch(url: str) -> tuple[int, str]:
-    """(статус, нормализованный текст страницы); статус 0 — сетевая ошибка."""
-    if url in _cache:
-        return _cache[url]
+def _get(url: str, timeout: int) -> tuple[int, str]:
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "en,ru;q=0.8"})
     try:
-        with urllib.request.urlopen(req, timeout=25) as resp:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
             status = resp.status
             ctype = resp.headers.get("Content-Type", "")
             raw = resp.read(8_000_000)
     except urllib.error.HTTPError as e:
-        result = (e.code, "")
+        return e.code, ""
     except Exception as e:  # noqa: BLE001 — любая сетевая ошибка = непроверяемо
-        result = (0, str(e))
-    else:
-        if "pdf" in ctype:
-            result = (status, "")
-        else:
-            body = raw.decode("utf-8", "replace")
-            # Текст внутри <script> тоже оставляем: многие сайты кладут контент в JSON.
-            body = body.replace("\\u2019", "'").replace("\\u201c", '"').replace("\\u201d", '"')
-            body = body.replace('\\"', '"').replace("\\n", " ")
-            result = (status, norm(re.sub(r"<[^>]+>", " ", body)))
+        return 0, str(e)
+    if "pdf" in ctype:
+        return status, ""
+    body = raw.decode("utf-8", "replace")
+    # Текст внутри <script> тоже оставляем: многие сайты кладут контент в JSON.
+    body = body.replace("\\u2019", "'").replace("\\u201c", '"').replace("\\u201d", '"')
+    body = body.replace('\\"', '"').replace("\\n", " ")
+    return status, norm(re.sub(r"<[^>]+>", " ", body))
+
+
+def _github_fallback(url: str) -> tuple[int, str] | None:
+    """github.com отдаёт 403 облачным IP: проверяем репозиторий через API, текст — по README."""
+    m = re.match(r"https://github\.com/([\w.-]+)/([\w.-]+)/?$", url)
+    if not m:
+        return None
+    owner, repo = m.groups()
+    status, _ = _get(f"https://api.github.com/repos/{owner}/{repo}", 25)
+    if status != 200:
+        return None
+    _, readme = _get(f"https://raw.githubusercontent.com/{owner}/{repo}/HEAD/README.md", 25)
+    return 200, readme
+
+
+def fetch(url: str) -> tuple[int, str]:
+    """(статус, нормализованный текст страницы); статус 0 — сетевая ошибка."""
+    if url in _cache:
+        return _cache[url]
+    result = _get(url, 25)
+    if result[0] == 0 or result[0] in (429, 502, 503, 504):
+        # Российские сайты из зарубежного облака иногда отвечают с большой задержкой.
+        result = _get(url, 60)
+    if result[0] in (403, 429):
+        result = _github_fallback(url) or result
     _cache[url] = result
     return result
 
