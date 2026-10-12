@@ -110,8 +110,8 @@ def first_h1(md_text: str, fallback: str) -> str:
 
 
 def count_signals(md_text: str) -> int:
-    m = re.search(r"^## Новые сигналы\s*$(.*?)(?=^## |\Z)", md_text, re.M | re.S)
-    return len(re.findall(r"^### ", m.group(1), re.M)) if m else 0
+    sections = re.findall(r"^## (?:Новые сигналы|Коротко)\s*$(.*?)(?=^## |\Z)", md_text, re.M | re.S)
+    return sum(len(re.findall(r"^### ", s, re.M)) for s in sections)
 
 
 def plural(n: int) -> str:
