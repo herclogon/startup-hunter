@@ -55,20 +55,32 @@
 и услуги» (допустимо 4/6 или 6/4). Не более двух сигналов одной отрасли в выпуске,
 то есть минимум 5 разных отраслей и несколько стран.
 
-### GitHub
+### Закрытые из облака источники и обходы
 
-Без авторизации api.github.com и github.com отвечают облаку 403. В окружении есть
-переменная `GITHUB_TOKEN` — используй её во всех запросах:
+Из облачного окружения не открываются: api.github.com и github.com (прокси
+пропускает только свой репозиторий, любой токен бесполезен), kickstarter.com,
+indiegogo.com, producthunt.com, api.sam.gov (нужен ключ). Используй обходы:
 
-```bash
-curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
-  "https://api.github.com/search/repositories?q=created:>$(date -u -d '-14 days' +%F)+stars:>300&sort=stars&order=desc&per_page=50"
-```
-
-Звёзды — живой счётчик, в выпуске пиши «по данным GitHub API на <дата>: N звёзд,
-создан <дата>». Описание и факты проверяй по README (`raw.githubusercontent.com`)
-и странице релизов через API. Отсеивай форки, курсы-списки (awesome-*), шпаргалки
-и обёртки над чужими моделями: нужен продукт с понятным пользователем.
+- **Поиск проектов GitHub:** Show HN через API Algolia (работает):
+  `curl -s 'https://hn.algolia.com/api/v1/search_by_date?tags=show_hn&numericFilters=points%3E40,created_at_i%3E'$(date -d '-7 days' +%s)'&hitsPerPage=50'`;
+  плюс WebSearch по новостям об open-source проектах.
+- **Звёзды:** `curl -s https://img.shields.io/github/stars/{owner}/{repo}.json`
+  (значение округлённое, вроде «10k»). В выпуске пиши «по данным shields.io на
+  <дата>: около N звёзд».
+- **Факты о проекте:** README по адресу
+  `https://raw.githubusercontent.com/{owner}/{repo}/HEAD/README.md`. Ссылку в
+  выпуске давай на `https://github.com/{owner}/{repo}` — проверка умеет сверять
+  цитату с README. Отсеивай форки, списки-курсы (awesome-*), шпаргалки и обёртки
+  над чужими моделями: нужен продукт с понятным пользователем.
+- **TED (закупки ЕС):** API принимает POST:
+  `curl -s -X POST -H 'Content-Type: application/json' -d '{"query":"classification-cpv=72000000 AND publication-date>=20261007","fields":["publication-number","notice-title","buyer-name","buyer-country","total-value","total-value-cur","description-lot","deadline-receipt-tender-date-lot"],"limit":20}' https://api.ted.europa.eu/v3/notices/search`.
+  Ссылку давай вида `https://ted.europa.eu/en/notice/-/detail/<номер>`; цитаты бери
+  из полей `notice-title` и `description-lot` — проверка сверяет их через тот же API.
+- **Kickstarter, Indiegogo, Product Hunt:** только через открытые обзоры и
+  трекеры (gizmocrowd, makers101, kicktraq, thecrowdspace, профильные СМИ)
+  с датой снимка.
+- **Госзакупки США:** сайт sam.gov открывается, API нет; проще брать через
+  washingtontechnology.com, govconwire.com и подобные.
 
 ## Отбор
 

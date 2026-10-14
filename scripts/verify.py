@@ -85,6 +85,42 @@ def _github_fallback(url: str) -> tuple[int, str] | None:
     return 200, re.sub(r"\s+", " ", re.sub(r"[*_`]", "", readme))
 
 
+def _ted_fallback(url: str) -> tuple[int, str] | None:
+    """Страницы извещений TED отдают роботам 202 без текста: берём поля через API."""
+    m = re.search(r"ted\.europa\.eu/.*?(\d{1,6}-\d{4})", url)
+    if not m:
+        return None
+    body = json.dumps({
+        "query": f"publication-number={m.group(1)}",
+        "fields": ["publication-number", "notice-title", "buyer-name", "buyer-country",
+                   "publication-date", "total-value", "total-value-cur", "description-lot",
+                   "deadline-receipt-tender-date-lot", "notice-type"],
+        "limit": 1,
+    }).encode()
+    req = urllib.request.Request(
+        "https://api.ted.europa.eu/v3/notices/search", data=body,
+        headers={"Content-Type": "application/json", "User-Agent": UA},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=40) as resp:
+            notices = json.loads(resp.read()).get("notices", [])
+    except Exception:  # noqa: BLE001
+        return None
+    if not notices:
+        return None
+
+    def flat(v):
+        if isinstance(v, dict):
+            return " ".join(flat(x) for x in v.values())
+        if isinstance(v, list):
+            return " ".join(flat(x) for x in v)
+        return str(v)
+
+    n = notices[0]
+    n.pop("links", None)
+    return 200, norm(flat(n))
+
+
 def fetch(url: str) -> tuple[int, str]:
     """(статус, нормализованный текст страницы); статус 0 — сетевая ошибка."""
     if url in _cache:
@@ -97,6 +133,11 @@ def fetch(url: str) -> tuple[int, str]:
         result = _get(url, timeout)
     if result[0] in (403, 429):
         result = _github_fallback(url) or result
+    if "ted.europa.eu" in url:
+        # Текст извещения на странице рисуется скриптом, поэтому всегда добавляем поля из API.
+        api = _ted_fallback(url)
+        if api:
+            result = (200, api[1] + " " + result[1])
     _cache[url] = result
     return result
 
