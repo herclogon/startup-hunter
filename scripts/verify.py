@@ -11,7 +11,11 @@
 (таймаут, обрыв) после повторов — только предупреждение «!»: он не доказывает,
 что ссылка мёртвая. Несуществующий домен, HTTP 4xx/5xx и цитата, которой нет на
 загруженной странице, — провал.
-Использование: python3 scripts/verify.py digests/2026-10-12.md [...]
+
+С --soft-network ответы сайтов (HTTP 4xx/5xx, нет домена, нет цитаты на странице) —
+тоже предупреждения. Так запускает CI: антибот-защита (Cloudflare, Akamai) режет
+IP раннеров GitHub ложными 403/404, а ссылки уже проверил агент перед push.
+Использование: python3 scripts/verify.py [--soft-network] digests/2026-10-12.md [...]
 """
 
 import html
@@ -150,7 +154,7 @@ def card_of(text: str, pos: int) -> str:
     return text[head + 5 : text.find("\n", head + 5)].strip()
 
 
-def verify(path: Path, archive: list[dict]) -> tuple[list[str], list[str]]:
+def verify(path: Path, archive: list[dict], soft: bool = False) -> tuple[list[str], list[str]]:
     """(проблемы — сигнал удаляется, предупреждения — сбой сети, проверить не удалось)."""
     problems, warnings = [], []
     date = path.stem
@@ -175,26 +179,29 @@ def verify(path: Path, archive: list[dict]) -> tuple[list[str], list[str]]:
     with ThreadPoolExecutor(8) as pool:
         list(pool.map(fetch, set(links) | {q["url"] for _, q in quotes}))
 
+    remote = warnings if soft else problems
     for rid, q in quotes:
         status, page = fetch(q["url"])
         if status == 0:
             warnings.append(f"архив {rid}: сбой сети, цитату проверить не удалось: {q['url']}")
         elif status < 0 or status >= 400:
-            problems.append(f"архив {rid}: страница недоступна (HTTP {status}): {q['url']}")
+            remote.append(f"архив {rid}: страница недоступна (HTTP {status}): {q['url']}")
         elif norm(q["text"]) not in page:
-            problems.append(f"архив {rid}: цитата не найдена на странице: {q['url']}")
+            remote.append(f"архив {rid}: цитата не найдена на странице: {q['url']}")
 
     for url, pos in links.items():
         status, _ = fetch(url)
         if status == 0:
             warnings.append(f"{card_of(text, pos)}: сбой сети, ссылку проверить не удалось: {url}")
         elif status < 0 or status >= 400:
-            problems.append(f"{card_of(text, pos)}: ссылка не открывается (HTTP {status}): {url}")
+            remote.append(f"{card_of(text, pos)}: ссылка не открывается (HTTP {status}): {url}")
     return problems, warnings
 
 
 def main() -> int:
-    paths = [Path(p) for p in sys.argv[1:]]
+    args = sys.argv[1:]
+    soft = "--soft-network" in args
+    paths = [Path(p) for p in args if p != "--soft-network"]
     if not paths:
         print(__doc__)
         return 2
@@ -213,7 +220,7 @@ def main() -> int:
     if dupes:
         print(f"архив: повторяющиеся id: {', '.join(sorted(dupes))}")
     for path in paths:
-        problems, warnings = verify(path, archive)
+        problems, warnings = verify(path, archive, soft)
         if problems:
             failed = True
             print(f"✗ {path}")

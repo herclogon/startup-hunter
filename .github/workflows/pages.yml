@@ -32,7 +32,7 @@ jobs:
             before=$(git hash-object -t tree /dev/null)
           fi
           changed=$(git diff --name-only --diff-filter=AM "$before" HEAD -- 'digests/*.md')
-          if [ -n "$changed" ]; then python3 scripts/verify.py $changed; else echo "No digest changes"; fi
+          if [ -n "$changed" ]; then python3 scripts/verify.py --soft-network $changed; else echo "No digest changes"; fi
       - run: python3 scripts/build.py --out _site
       - uses: actions/upload-pages-artifact@v3
         with:
