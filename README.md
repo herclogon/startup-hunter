@@ -1,30 +1,19 @@
-# startup-hunter
+# Радар возможностей
 
-Ежедневный публичный дайджест зарубежных бизнес-сигналов с разбором применимости
-в России: https://herclogon.github.io/startup-hunter/latest/
+Ежедневные зарубежные бизнес-сигналы с разбором применимости в России.
 
-## Как устроено
+- [Последний выпуск](https://herclogon.github.io/startup-hunter/latest/)
+- [Архив на сайте](https://herclogon.github.io/startup-hunter/)
+- [RSS](https://herclogon.github.io/startup-hunter/feed.xml)
 
-- Облачный агент Claude по расписанию (05:00 МСК) выполняет [PROMPT.md](PROMPT.md):
-  ищет сигналы по фокусу дня, сверяется с архивом, пишет `digests/YYYY-MM-DD.md`,
-  дописывает `data/signals.jsonl`, проверяет выпуск и делает push.
-- GitHub Actions на каждый push проверяет изменённые выпуски, собирает сайт и
-  публикует его на GitHub Pages.
+В репозитории хранятся готовые отчёты:
 
-| Путь | Что это |
+| Путь | Содержимое |
 |---|---|
-| `PROMPT.md` | инструкция агента: профиль, ротация источников, правила фактов, формат |
-| `digests/` | выпуски в markdown |
-| `data/signals.jsonl` | архив сигналов с цитатами, по нему отсеиваются повторы |
-| `scripts/verify.py` | проверка ссылок и цитат в выпуске |
-| `scripts/build.py` | сборка сайта в `_site/` |
-| `content/about.md` | страница «О проекте» |
-| `docs/original-brief.md` | исходное ТЗ, из которого вырос проект |
+| `digests/` | выпуски в Markdown |
+| `data/signals.jsonl` | архив сигналов и подтверждающих цитат |
+| `site/` | готовые HTML-страницы и RSS |
 
-## Локально
-
-```bash
-pip install -r requirements.txt
-python3 scripts/verify.py digests/2026-10-12.md
-python3 scripts/build.py && python3 -m http.server -d _site
-```
+Проверка и сборка выполняются до загрузки файлов. GitHub Actions публикует
+готовую папку `site/` на GitHub Pages. Рабочий код и инструкции агента
+поддерживаются отдельно и в этот репозиторий не загружаются.

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>О проекте — Радар возможностей</title>
+<link rel="alternate" type="application/rss+xml" title="Радар возможностей" href="../feed.xml">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--muted:#6b675f;--line:#e4e0d7;--accent:#1f5fbf;
+--quote:#f1eee6;--warn-bg:#fff2d6;--warn-fg:#7a4b00;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151514;--fg:#e9e6df;
+--muted:#9b968c;--line:#2e2d2a;--accent:#7fb0ff;--quote:#1f1e1c;--warn-bg:#3a2c0f;--warn-fg:#ffd27a;}}
+:root[data-theme="dark"]{--bg:#151514;--fg:#e9e6df;--muted:#9b968c;--line:#2e2d2a;--accent:#7fb0ff;
+--quote:#1f1e1c;--warn-bg:#3a2c0f;--warn-fg:#ffd27a;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main,header,footer{max-width:44rem;margin:0 auto;padding:0 16px}
+header{display:flex;gap:1.2rem;align-items:baseline;flex-wrap:wrap;padding-top:1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--line)}
+header .brand{font-weight:700;color:var(--fg);text-decoration:none;margin-right:auto}
+header a{color:var(--muted);text-decoration:none}header a:hover{color:var(--accent)}
+a{color:var(--accent);overflow-wrap:anywhere}
+h1{font-size:1.6rem;line-height:1.25;margin:1.6rem 0 .4rem}
+h2{font-size:1.25rem;margin:2.4rem 0 .6rem;padding-bottom:.3rem;border-bottom:1px solid var(--line)}
+h3{font-size:1.08rem;margin:2rem 0 .3rem;line-height:1.35}
+h3+p{color:var(--muted);font-size:.88rem;margin-top:0}
+blockquote{margin:.6rem 0;padding:.5rem .9rem;background:var(--quote);border-left:3px solid var(--line);font-size:.93rem}
+blockquote p{margin:0}
+ul{padding-left:1.2rem}
+table{border-collapse:collapse;display:block;overflow-x:auto}td,th{border:1px solid var(--line);padding:.3rem .6rem}
+.stale{background:var(--warn-bg);color:var(--warn-fg);padding:.6rem .9rem;border-radius:6px;margin-top:1rem;display:none}
+.issues{list-style:none;padding:0}.issues li{padding:.45rem 0;border-bottom:1px solid var(--line)}
+.issues .meta{color:var(--muted);font-size:.88rem}
+.pager{display:flex;justify-content:space-between;margin:3rem 0 1rem;gap:1rem}
+footer{color:var(--muted);font-size:.85rem;padding-top:1rem;padding-bottom:2rem;border-top:1px solid var(--line);margin-top:3rem}
+</style></head>
+<body>
+<header><a class="brand" href="../">Радар возможностей</a>
+<a href="../latest/">Последний</a><a href="../about/">О проекте</a><a href="../feed.xml">RSS</a></header>
+<main>
+<h1>О проекте</h1>
+<p><strong>Радар возможностей</strong> — ежедневная подборка свежих зарубежных бизнес-сигналов:
+продажи, заказы, контракты, закупки, раунды, краудфандинг, регулирование.
+К каждому сигналу — короткий разбор: какую проблему решают, насколько она болит,
+растёт ли рынок и применимо ли это в России.</p>
+<p>В выпуске до 10 сигналов: первые пять — подробные карточки, остальные — компактные.
+Если проверку прошло меньше, выпуск выходит с тем, что есть.</p>
+<h2>Для кого отбор</h2>
+<p>Подборка личная: это радар для насмотренности одного человека. Сигналы отбираются
+под такой профиль:</p>
+<ul>
+<li>1–2 человека, проект параллельно основной работе;</li>
+<li>до 3 млн ₽ на первые полгода;</li>
+<li>сильные стороны — разработка и автоматизация, слабые — продажи и производство;</li>
+<li>поэтому из физических товаров и услуг отбираются модели без собственного
+    завода: контрактное производство, сервис оборудования, B2B-площадки, софт для
+    производств.</li>
+</ul>
+<p>Примерно половина сигналов — софт и AI, половина — физические товары, производство
+и услуги.</p>
+<h2>Фокус по дням недели</h2>
+<table>
+<thead>
+<tr>
+<th>День</th>
+<th>Фокус</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Понедельник</td>
+<td>Краудфандинг физических продуктов</td>
+</tr>
+<tr>
+<td>Вторник</td>
+<td>Open source и новые продукты</td>
+</tr>
+<tr>
+<td>Среда</td>
+<td>Корпоративные внедрения и закупки</td>
+</tr>
+<tr>
+<td>Четверг</td>
+<td>Раунды и выручка малых B2B-компаний</td>
+</tr>
+<tr>
+<td>Пятница</td>
+<td>Реальная экономика: промышленность, логистика, агро, стройка</td>
+</tr>
+<tr>
+<td>Суббота</td>
+<td>Регулирование, создающее рынок</td>
+</tr>
+<tr>
+<td>Воскресенье</td>
+<td>Азия + что повторялось за неделю</td>
+</tr>
+</tbody>
+</table>
+<h2>Как проверяются факты</h2>
+<ul>
+<li>Каждая цифра подкреплена дословной цитатой со страницы источника.</li>
+<li>
+<p>Перед публикацией скрипт открывает каждую ссылку и ищет каждую цитату на странице.
+    Сигнал, который не прошёл проверку, удаляется.</p>
+</li>
+<li>
+<p>«Оценка» — явно помеченное мнение модели, а не факт. «Почему интересно» — тоже мнение.</p>
+</li>
+<li>Отсутствие найденного российского аналога не означает, что ниши никто не занял.</li>
+<li>Пустой выпуск — нормальный результат: подборка не заполняется ради количества.</li>
+</ul>
+<h2>Шкала применимости в России</h2>
+<ul>
+<li>
+<p><strong>Высокая</strong> — есть понятный платящий клиент в РФ, нет блокирующего барьера,
+    реализуемо под профиль.</p>
+</li>
+<li>
+<p><strong>Средняя</strong> — клиент есть, но сильные конкуренты, существенный барьер или
+    реализуемость под вопросом.</p>
+</li>
+<li>
+<p><strong>Низкая</strong> — блокирующий барьер, нет клиента в РФ или не подходит под профиль.</p>
+</li>
+</ul>
+<p>Выпуски готовит AI-агент каждый день в 05:00 по Москве.
+Архив выпусков: <a href="https://github.com/herclogon/startup-hunter">github.com/herclogon/startup-hunter</a>.</p>
+</main>
+<footer>Сигналы собирает и проверяет AI-агент. Цифры подкреплены цитатами из источников;
+«Оценка» и «Почему интересно» — мнение модели, не факт.</footer>
+</body></html>

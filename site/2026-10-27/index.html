@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Радар возможностей — 27 октября 2026, вторник</title>
+<link rel="alternate" type="application/rss+xml" title="Радар возможностей" href="../feed.xml">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--muted:#6b675f;--line:#e4e0d7;--accent:#1f5fbf;
+--quote:#f1eee6;--warn-bg:#fff2d6;--warn-fg:#7a4b00;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151514;--fg:#e9e6df;
+--muted:#9b968c;--line:#2e2d2a;--accent:#7fb0ff;--quote:#1f1e1c;--warn-bg:#3a2c0f;--warn-fg:#ffd27a;}}
+:root[data-theme="dark"]{--bg:#151514;--fg:#e9e6df;--muted:#9b968c;--line:#2e2d2a;--accent:#7fb0ff;
+--quote:#1f1e1c;--warn-bg:#3a2c0f;--warn-fg:#ffd27a;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main,header,footer{max-width:44rem;margin:0 auto;padding:0 16px}
+header{display:flex;gap:1.2rem;align-items:baseline;flex-wrap:wrap;padding-top:1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--line)}
+header .brand{font-weight:700;color:var(--fg);text-decoration:none;margin-right:auto}
+header a{color:var(--muted);text-decoration:none}header a:hover{color:var(--accent)}
+a{color:var(--accent);overflow-wrap:anywhere}
+h1{font-size:1.6rem;line-height:1.25;margin:1.6rem 0 .4rem}
+h2{font-size:1.25rem;margin:2.4rem 0 .6rem;padding-bottom:.3rem;border-bottom:1px solid var(--line)}
+h3{font-size:1.08rem;margin:2rem 0 .3rem;line-height:1.35}
+h3+p{color:var(--muted);font-size:.88rem;margin-top:0}
+blockquote{margin:.6rem 0;padding:.5rem .9rem;background:var(--quote);border-left:3px solid var(--line);font-size:.93rem}
+blockquote p{margin:0}
+ul{padding-left:1.2rem}
+table{border-collapse:collapse;display:block;overflow-x:auto}td,th{border:1px solid var(--line);padding:.3rem .6rem}
+.stale{background:var(--warn-bg);color:var(--warn-fg);padding:.6rem .9rem;border-radius:6px;margin-top:1rem;display:none}
+.issues{list-style:none;padding:0}.issues li{padding:.45rem 0;border-bottom:1px solid var(--line)}
+.issues .meta{color:var(--muted);font-size:.88rem}
+.pager{display:flex;justify-content:space-between;margin:3rem 0 1rem;gap:1rem}
+footer{color:var(--muted);font-size:.85rem;padding-top:1rem;padding-bottom:2rem;border-top:1px solid var(--line);margin-top:3rem}
+</style></head>
+<body>
+<header><a class="brand" href="../">Радар возможностей</a>
+<a href="../latest/">Последний</a><a href="../about/">О проекте</a><a href="../feed.xml">RSS</a></header>
+<main>
+<h1>Радар возможностей — 27 октября 2026, вторник</h1>
+<p>Фокус дня: open source и продукты (Show HN и Launch HN через API Algolia, README на GitHub, CNX Software, Hackaday) + свободный поиск (AgFunderNews, Tech.eu, Tech Funding News, GIGAZINE). Проверено против 141 сигнала архива. Звёзды GitHub по данным shields.io на 27 октября 2026 года.</p>
+<h2>Новые сигналы</h2>
+<h3>1. Respan — открытый ИИ-шлюз на Rust, где провайдеры и функции подключаются плагинами (США)</h3>
+<p>Отрасль: ИИ-инфраструктура · Тип: софт · Событие: 2026-10-20 · Публикация: 2026-10-20</p>
+<p><strong>Проблема.</strong> Командам, которые встраивают LLM в продукты, нужен один адрес для всех моделей с маршрутизацией, резервированием, маскированием персональных данных и логами. Готовые шлюзы плохо расширяются, и компании обрастают собственными обёртками.</p>
+<p><strong>Насколько болит: средне (2/3).</strong> Признак боли — собственная обвязка вокруг чужого шлюза разрослась до размеров отдельного продукта, а обновление ломало работу; денежных потерь в источнике нет:</p>
+<blockquote>
+<p>«our wrapper code exceeded 100,000 lines» — <a href="https://news.ycombinator.com/item?id=50167583">news.ycombinator.com</a></p>
+</blockquote>
+<p><strong>Факт.</strong> Компания из YC показала шлюз на Launch HN 20 октября. Код открыт под MIT или Apache-2.0; по данным shields.io на 27 октября 2026 года — около 343 звёзд. Шлюзом на базе LiteLLM уже пользуются тысячи организаций, теперь его переписали с нуля; зарабатывают на облачной версии:</p>
+<blockquote>
+<p>«now it's providing services for thousands of orgs» — <a href="https://news.ycombinator.com/item?id=50167583">news.ycombinator.com</a></p>
+<p>«We make money from our hosted platform» — <a href="https://news.ycombinator.com/item?id=50167583">news.ycombinator.com</a></p>
+<p>«is a single Rust binary that sits between your code and» — <a href="https://github.com/respanai/respan-gateway">github.com</a></p>
+</blockquote>
+<p><strong>Рост рынка.</strong> Рост рынка: данных не найдено (мир, РФ).</p>
+<p><strong>Почему интересно.</strong> Шлюз между приложениями и моделями становится обязательным слоем в любой компании, где больше одного ИИ-сценария, и это чистая инфраструктурная задача без обучения моделей. Открытое ядро с платным облаком — понятный путь для маленькой команды.</p>
+<p>Похоже на: 2026-10-20 Consus (LLM-шлюз с маршрутизацией по требованиям к данным).</p>
+<p><strong>Россия.</strong></p>
+<ul>
+<li>
+<p>Аналоги: <a href="https://proxyapi.ru/">ProxyAPI</a> и <a href="https://vsegpt.ru/">VseGPT</a> — единый API к зарубежным моделям с оплатой в рублях:</p>
+<blockquote>
+<p>«Замените адрес API в своем приложении на наш, методы и параметры останутся такими же» — <a href="https://proxyapi.ru/">proxyapi.ru</a></p>
+</blockquote>
+<p>Self-hosted шлюза для компаний, объединяющего GigaChat, YandexGPT и открытые модели с маскированием персональных данных и аудитом, не найдено.</p>
+</li>
+<li>
+<p>Барьер: персональные данные. Корпоративному заказчику нужна гарантия, что ПДн не уйдут к внешнему провайдеру, а это требования 152-ФЗ и проверки службы безопасности до первой продажи.</p>
+</li>
+<li>Применимость: <strong>высокая</strong> — платящий клиент (банки, ритейл, интеграторы с несколькими ИИ-сценариями) есть, продукт программный и инфраструктурный, а открытые шлюзы можно взять за основу.</li>
+</ul>
+<h3>2. Reservoir Farms — фермы-полигоны для агророботов по подписке: прибыль и 5 млн долларов ARR (США)</h3>
+<p>Отрасль: агро · Тип: услуга · Событие: 2026-10-20 · Публикация: 2026-10-20</p>
+<p><strong>Проблема.</strong> Стартапам в агроробототехнике негде испытывать машины в реальном поле с застрахованной техникой, а фермеры не покупают то, что не прошло местный сезон.</p>
+<p><strong>Насколько болит: средне (2/3).</strong> Признак боли — фермеры отказываются от непроверенной техники; денег, которые теряют стартапы без полигона, в источнике нет:</p>
+<blockquote>
+<p>«they will not adopt technology that was not developed or tested locally» — <a href="https://agfundernews.com/reservoir-farms-expands-to-pacific-northwest-to-accelerate-physical-ai-as-membership-tops-30">agfundernews.com</a></p>
+</blockquote>
+<p><strong>Факт.</strong> Открывает четвёртую площадку (штат Вашингтон, яблоки и голубика); число участников превысило 30 стартапов. Компания прибыльна и ждёт более 5 млн долларов годовой выручки; верхний тариф — 6000 долларов в месяц:</p>
+<blockquote>
+<p>«its membership tops 30 startups» — <a href="https://agfundernews.com/reservoir-farms-expands-to-pacific-northwest-to-accelerate-physical-ai-as-membership-tops-30">agfundernews.com</a></p>
+<p>«This year we’re profitable.» — <a href="https://agfundernews.com/reservoir-farms-expands-to-pacific-northwest-to-accelerate-physical-ai-as-membership-tops-30">agfundernews.com</a></p>
+<p>«We’ll do $5 million+ ARR» — <a href="https://agfundernews.com/reservoir-farms-expands-to-pacific-northwest-to-accelerate-physical-ai-as-membership-tops-30">agfundernews.com</a></p>
+<p>«a $6,000-a-month package enabling members to use its locations» — <a href="https://agfundernews.com/reservoir-farms-expands-to-pacific-northwest-to-accelerate-physical-ai-as-membership-tops-30">agfundernews.com</a></p>
+</blockquote>
+<p><strong>Рост рынка.</strong> Рост рынка: данных не найдено (мир, РФ).</p>
+<p><strong>Почему интересно.</strong> Деньги здесь не в роботах, а в инфраструктуре вокруг них: поле, склад для техники, страховка, доступ к агрономам. Такая модель «коворкинг для железа» работает при любом исходе гонки роботов.</p>
+<p><strong>Россия.</strong></p>
+<ul>
+<li>Аналоги: постоянного коммерческого полигона для агророботов не найдено. Общие испытания беспилотных систем проводит испытательный центр <a href="https://sk.ru/">«Сколково»</a>; в 2020 году Cognitive Pilot анонсировала полигон для беспилотной сельхозтехники с агрохолдингом, следов работы как открытой площадки для сторонних команд сейчас нет.</li>
+<li>Барьер: мало клиентов. Стартапов в агроробототехнике в РФ единицы, основной заказчик испытаний — крупные производители техники со своими полигонами.</li>
+<li>Применимость: <strong>средняя</strong> — партнёр-агрохолдинг и вузовские команды есть, но платящих стартапов немного, а модель требует земли и техники, а не софта.</li>
+</ul>
+<h3>3. Maxinsights — тысячи исполнителей снимают бытовую работу на камеру для обучения роботов, посев 30 млн долларов (США)</h3>
+<p>Отрасль: разметка и данные для ИИ · Тип: услуга · Событие: 2026-10-23 · Публикация: 2026-10-23</p>
+<p><strong>Проблема.</strong> Разработчикам роботов нужны миллионы часов видео, как люди выполняют реальную работу в домах, ресторанах и гостиницах, а постановочные съёмки не дают редких ситуаций.</p>
+<p><strong>Насколько болит: средне (2/3).</strong> Признак боли — клиенты переходят на регулярные контракты; денежных потерь без данных в источнике нет.</p>
+<blockquote>
+<p>«serves more than 30 customers, including frontier AI labs. Eight are on recurring contracts.» — <a href="https://techfundingnews.com/maxinsights-raises-30m-from-peak-xv-to-pay-more-than-5000-people-to-film-real-work-for-robotsx/">techfundingnews.com</a></p>
+</blockquote>
+<p><strong>Факт.</strong> Посевной раунд во главе с Peak XV. Компания нанимает исполнителей через кадровые агентства, выдаёт им свои камеры и автоматически оценивает каждый ролик, что сократило затраты на проверку:</p>
+<blockquote>
+<p>«announced a $30 million seed round led by Peak XV» — <a href="https://techfundingnews.com/maxinsights-raises-30m-from-peak-xv-to-pay-more-than-5000-people-to-film-real-work-for-robotsx/">techfundingnews.com</a></p>
+<p>«It pays more than 5,000 contractors in six countries to film work for robot training.» — <a href="https://techfundingnews.com/maxinsights-raises-30m-from-peak-xv-to-pay-more-than-5000-people-to-film-real-work-for-robotsx/">techfundingnews.com</a></p>
+<p>«review costs are down roughly 80%, its human review team is 90% smaller» — <a href="https://techfundingnews.com/maxinsights-raises-30m-from-peak-xv-to-pay-more-than-5000-people-to-film-real-work-for-robotsx/">techfundingnews.com</a></p>
+</blockquote>
+<p><strong>Рост рынка.</strong></p>
+<ul>
+<li>
+<p>Мир: инвестиции в «физический ИИ», то есть в будущих покупателей таких данных (по данным Crunchbase в пересказе источника):</p>
+<blockquote>
+<p>«Investors put $47.4 billion into physical AI across 521 deals in the first half of 2026» — <a href="https://techfundingnews.com/maxinsights-raises-30m-from-peak-xv-to-pay-more-than-5000-people-to-film-real-work-for-robotsx/">techfundingnews.com</a></p>
+</blockquote>
+</li>
+<li>
+<p>РФ: нет проверенных данных.</p>
+</li>
+</ul>
+<p><strong>Почему интересно.</strong> Это сервис на стыке краудсорсинга и автоматизации: преимущество не в людях с камерами, а в конвейере контроля качества, который отсеивает плохие ролики без ручной проверки. Ровно та часть, где сильна команда разработчиков.</p>
+<p><strong>Россия.</strong></p>
+<ul>
+<li>Аналоги: не найдено (искали сбор видео от первого лица и датасеты для обучения роботов; нашлись только академические наборы данных и собственные исследования крупных компаний).</li>
+<li>Барьер: платёжеспособный клиент. Основные покупатели — зарубежные ИИ-лаборатории, работа с которыми из РФ затруднена, а внутренний спрос ограничен робототехническими подразделениями нескольких крупных компаний.</li>
+<li>Применимость: <strong>средняя</strong> — команда закрывает софтовую часть (оценка роликов, разметка), но покупателей в РФ немного, а с зарубежными мешают платежи и санкции.</li>
+</ul>
+<h3>4. Alter — прокси с правами доступа для ИИ-агентов, которые действуют от имени разных сотрудников (США)</h3>
+<p>Отрасль: кибербезопасность · Тип: софт · Событие: 2026-10-21 · Публикация: 2026-10-21</p>
+<p><strong>Проблема.</strong> Внутренний агент в мессенджере обслуживает многих сотрудников, но ходит в CRM и биллинг с одним общим ключом и может сделать всё, что позволяет ключ, независимо от того, кто его попросил.</p>
+<blockquote>
+<p>«the agent connects to the CRM or billing system with one shared API key, so the agent can do anything that the key can do» — <a href="https://news.ycombinator.com/item?id=50176908">news.ycombinator.com</a></p>
+</blockquote>
+<p><strong>Насколько болит: средне (2/3).</strong> Оценка: признак боли — компании в регулируемых отраслях пишут собственную авторизацию для агентов; цифр потерь нет.</p>
+<p><strong>Факт.</strong> Компания из YC показала продукт на Launch HN. Сервис подставляет учётные данные конкретного пользователя в каждый запрос агента, применяет политики и ведёт аудит; оплата по числу запросов:</p>
+<blockquote>
+<p>«We support hundreds of providers, all manually tested end to end.» — <a href="https://news.ycombinator.com/item?id=50176908">news.ycombinator.com</a></p>
+<p>«There is a free tier up to 10k requests and then a pricing tier starting beyond that.» — <a href="https://news.ycombinator.com/item?id=50176908">news.ycombinator.com</a></p>
+</blockquote>
+<p><strong>Рост рынка.</strong> Рост рынка: данных не найдено (мир, РФ).</p>
+<p><strong>Почему интересно.</strong> Как только агенты начинают не только отвечать, но и действовать, вопрос «от чьего имени» становится вопросом службы безопасности. Продукт — это в основном скучная интеграционная работа с сотнями API, которую никто не хочет делать сам.</p>
+<p><strong>Россия.</strong></p>
+<ul>
+<li>Аналоги: отдельного продукта для прав ИИ-агентов не найдено. Управление доступом сотрудников закрывают системы класса IAM, например <a href="https://www.avanpost.ru/">Avanpost</a>.</li>
+<li>Барьер: канал продаж. Покупатель — служба безопасности крупной компании, которая предпочитает расширение уже купленной IAM-системы и продукты из реестра отечественного ПО.</li>
+<li>Применимость: <strong>средняя</strong> — задача понятна и под профиль, но массовых внедрений агентов с доступом к рабочим системам в РФ пока мало, и рынок может забрать вендор IAM.</li>
+</ul>
+<h3>5. Nous — ИИ-агент сам меняет поставщиков, отменяет подписки и следит за счетами семьи, раунд 17 млн долларов (Великобритания)</h3>
+<p>Отрасль: личные финансы и бытовые расходы · Тип: софт · Событие: 2026-10-26 · Публикация: 2026-10-26</p>
+<p><strong>Проблема.</strong> Семьи переплачивают за связь, энергию и страховки, потому что не успевают следить за продлениями договоров и сравнивать тарифы.</p>
+<p><strong>Насколько болит: средне (2/3).</strong> Оценка: признак боли — переплата за автоматические продления, но цифр экономии в источнике нет.</p>
+<p><strong>Факт.</strong> Раунд во главе с Heartcore Capital. Агент не советует, а действует от имени пользователя; компания зарегистрирована у британского финансового регулятора и не зарабатывает на рекламе:</p>
+<blockquote>
+<p>«$17 million in new funding to expand internationally» — <a href="https://tech.eu/2026/10/26/nous-lands-17m-to-bring-ai-powered-household-management-to-more-homes/">tech.eu</a></p>
+<p>«Its agent identifies cheaper deals, switches service providers, cancels subscriptions, completes forms» — <a href="https://tech.eu/2026/10/26/nous-lands-17m-to-bring-ai-powered-household-management-to-more-homes/">tech.eu</a></p>
+<p>«is registered with the Financial Conduct Authority (FCA)» — <a href="https://tech.eu/2026/10/26/nous-lands-17m-to-bring-ai-powered-household-management-to-more-homes/">tech.eu</a></p>
+<p>«does not generate revenue through advertising or the sale of customer data» — <a href="https://tech.eu/2026/10/26/nous-lands-17m-to-bring-ai-powered-household-management-to-more-homes/">tech.eu</a></p>
+</blockquote>
+<p><strong>Рост рынка.</strong> Рост рынка: данных не найдено (мир, РФ).</p>
+<p><strong>Почему интересно.</strong> Модель переходит от сравнения тарифов к исполнению: агент сам заполняет формы и расторгает договоры. Ставка на доверие (регулятор, отказ от рекламы) — главный аргумент против агрегаторов, живущих на комиссиях.</p>
+<p><strong>Россия.</strong></p>
+<ul>
+<li>Аналоги: <a href="https://www.sravni.ru/">Сравни</a> — сравнение и оформление страховок, кредитов и вкладов; сервиса, который сам ведёт бытовые договоры семьи и переключает поставщиков, не найдено.</li>
+<li>Барьер: переключать почти некого. Электроэнергию, воду и отопление в РФ поставляют местные монополии, и выбор есть в основном у связи, страховок и подписок.</li>
+<li>Применимость: <strong>средняя</strong> — платящий клиент (городские семьи) есть, но экономия на переключении меньше британской, а сравнительные сервисы и банки уже занимают нишу страховок.</li>
+</ul>
+<h2>Коротко</h2>
+<h3>6. Omnara — открытая платформа для долгоживущих ИИ-агентов вместо облачных сервисов вендоров моделей (США)</h3>
+<p>Отрасль: ИИ-инфраструктура · Тип: софт · Событие: 2026-10-21 · Публикация: 2026-10-21</p>
+<ul>
+<li><strong>Проблема:</strong> компаниям нужно запускать агентов на своих серверах и со своими моделями, а не только в облаках вендоров. <strong>Боль:</strong> 1/3 — признак только удобство и контроль, денежных потерь в источнике нет.</li>
+<li>
+<p><strong>Факт:</strong> показана на Show HN 21 октября; по данным shields.io на 27 октября 2026 года — около 3,3 тыс. звёзд. Лицензия Apache 2.0, есть платное облако:</p>
+<blockquote>
+<p>«Self-host it for free under Apache 2.0, or use» — <a href="https://github.com/omnara-ai/omnara">github.com</a></p>
+<p>«Each agent's state is stored in Postgres, so agents survive restarts and cost nothing while idle.» — <a href="https://news.ycombinator.com/item?id=50183892">news.ycombinator.com</a></p>
+</blockquote>
+</li>
+<li>
+<p><strong>Рост рынка:</strong> данных не найдено (мир, РФ).</p>
+</li>
+<li><strong>Россия:</strong> аналоги — платформы агентов у облаков: <a href="https://yandex.cloud/ru/services/ai-studio">Yandex AI Studio</a> и <a href="https://developers.sber.ru/portal/products/gigachat-api">GigaChat API</a>; барьер — сильные конкуренты: облака продают агентов вместе со своими моделями; применимость <strong>средняя</strong> — спрос на запуск агентов в своём контуре есть, но реалистичная ниша — внедрение и поддержка открытой платформы, а не своя.</li>
+</ul>
+<h3>7. Indurex — защита промышленных систем по инженерным данным, а не только по сетевому трафику (Европа)</h3>
+<p>Отрасль: кибербезопасность · Тип: софт · Событие: 2026-10-22 · Публикация: 2026-10-22</p>
+<ul>
+<li>
+<p><strong>Проблема:</strong> классические средства защиты АСУ ТП смотрят на сетевой трафик и не видят изменений в инженерных настройках и системах безопасности. <strong>Боль:</strong> 2/3 — растущие риски при соединении ИТ и промышленных сетей, цифр ущерба в источнике нет.</p>
+<blockquote>
+<p>«Traditional OT security tools focus primarily on network activity» — <a href="https://tech.eu/2026/10/22/indurex-raises-eur7m-to-strengthen-cybersecurity-across-critical-infrastructure/">tech.eu</a></p>
+</blockquote>
+</li>
+<li>
+<p><strong>Факт:</strong> раунд 7 млн евро во главе с Contrarian Ventures; клиенты — средние энергетические и производственные компании и крупные корпорации:</p>
+<blockquote>
+<p>«Indurex has raised €7 million in funding» — <a href="https://tech.eu/2026/10/22/indurex-raises-eur7m-to-strengthen-cybersecurity-across-critical-infrastructure/">tech.eu</a></p>
+<p>«early customers include mid-sized energy and manufacturing companies and large multinational enterprises» — <a href="https://tech.eu/2026/10/22/indurex-raises-eur7m-to-strengthen-cybersecurity-across-critical-infrastructure/">tech.eu</a></p>
+</blockquote>
+</li>
+<li>
+<p><strong>Рост рынка:</strong> данных не найдено (мир, РФ).</p>
+</li>
+<li><strong>Россия:</strong> аналоги <a href="https://www.kaspersky.ru/enterprise-security/industrial-cybersecurity">Kaspersky Industrial CyberSecurity</a>, PT ISIM и InfoWatch ARMA; барьер — сертификация ФСТЭК и требования к значимым объектам КИИ; применимость <strong>средняя</strong> — заказчики есть и обязаны защищаться, но рынок занят сильными вендорами, а малой команде реальна только ниша дополнительного анализа инженерных данных.</li>
+</ul>
+<h3>8. Epoch — проверка происхождения сырья для закона ЕС о вырубке лесов по одному списку поставщиков (Великобритания)</h3>
+<p>Отрасль: комплаенс цепочек поставок · Тип: софт · Событие: 2026-10-26 · Публикация: 2026-10-26</p>
+<ul>
+<li>
+<p><strong>Проблема:</strong> импортёры кофе, какао, каучука и древесины должны доказать, что сырьё выращено не на вырубке, а поставщики не дают координаты участков. <strong>Боль:</strong> 3/3 — обязательное требование регулятора со сроком:</p>
+<blockquote>
+<p>«The rules will apply to all large and medium operators from 30 December 2026 and to most micro and small operators from 30 June 2027.» — <a href="https://techfundingnews.com/epoch-4-25m-seed-eudr-first-mile-supply-chain/">techfundingnews.com</a></p>
+</blockquote>
+</li>
+<li>
+<p><strong>Факт:</strong> посевной раунд и запуск продукта самообслуживания для малого бизнеса; источник отмечает, что официальная карта лесов ЕС часто ошибается:</p>
+<blockquote>
+<p>«Epoch raised $4.25m in seed funding, led by Burnt Island Ventures and Sand River.» — <a href="https://techfundingnews.com/epoch-4-25m-seed-eudr-first-mile-supply-chain/">techfundingnews.com</a></p>
+<p>«the EU’s forest map incorrectly flagged 75% of the coffee plots it surveyed» — <a href="https://techfundingnews.com/epoch-4-25m-seed-eudr-first-mile-supply-chain/">techfundingnews.com</a></p>
+</blockquote>
+</li>
+<li>
+<p><strong>Рост рынка:</strong> данных не найдено (мир, РФ).</p>
+</li>
+<li><strong>Россия:</strong> аналоги не найдены; барьер — нет клиента: экспорт российской древесины в ЕС под санкциями, а остальные товары из списка закона в РФ не производят; применимость <strong>низкая</strong> — российскому бизнесу это требование почти не нужно.</li>
+</ul>
+<h3>9. RoboParty RP1 — гуманоидный робот с открытыми чертежами, платами и ПО (Китай)</h3>
+<p>Отрасль: робототехника · Тип: физический продукт · Событие: 2026-10-22 · Публикация: 2026-10-23</p>
+<ul>
+<li><strong>Проблема:</strong> лабораториям и командам, обучающим роботов, нужна платформа, которую можно разобрать, починить и изменить. <strong>Боль:</strong> 1/3 — признак только неудобство закрытых платформ.</li>
+<li>
+<p><strong>Факт:</strong> опубликованы файлы SolidWorks, Gerber, спецификации и ПО для обучения; цены и сроков поставки нет:</p>
+<blockquote>
+<p>«The repository also provides manufacturing files for 14 custom circuit boards» — <a href="https://www.cnx-software.com/2026/10/23/roboparty-rp1-roboto-01-a-full-stack-open-source-humanoid-robot-with-up-to-30-degrees-of-freedom/">cnx-software.com</a></p>
+<p>«The company’s original hardware designs are licensed under CERN-OHL-W-2.0.» — <a href="https://www.cnx-software.com/2026/10/23/roboparty-rp1-roboto-01-a-full-stack-open-source-humanoid-robot-with-up-to-30-degrees-of-freedom/">cnx-software.com</a></p>
+<p>«At the time of writing, RoboParty does not confirm pricing or a shipping schedule for the RP1 and RP1 Pro.» — <a href="https://www.cnx-software.com/2026/10/23/roboparty-rp1-roboto-01-a-full-stack-open-source-humanoid-robot-with-up-to-30-degrees-of-freedom/">cnx-software.com</a></p>
+</blockquote>
+</li>
+<li>
+<p><strong>Рост рынка:</strong> данных не найдено (мир, РФ).</p>
+</li>
+<li><strong>Россия:</strong> аналог — <a href="https://promo-bot.ru/">Promobot</a> (сервисные и антропоморфные роботы, закрытая платформа); барьер — компоненты: приводы, вычислители NVIDIA и камеры RealSense придётся везти параллельным импортом; применимость <strong>низкая</strong> — сборка гуманоида требует производства механики и больших денег, это не под профиль.</li>
+</ul>
+<h3>10. Microduck — робот-утка за 399 долларов с открытым ПО собрал более 20 000 предзаказов (Франция)</h3>
+<p>Отрасль: робототехника · Тип: физический продукт · Событие: 2026-10-22 · Публикация: 2026-10-24</p>
+<ul>
+<li><strong>Проблема:</strong> простого программируемого робота для дома и обучения, который сразу ходит и учится новым движениям, почти нет в рознице. <strong>Боль:</strong> 1/3 — спрос потребительский, без боли в деньгах.</li>
+<li>
+<p><strong>Факт:</strong> предзаказы выросли после показа на конференции NVIDIA; производитель Pollen Robotics входит в Hugging Face, которую источник называет купленной NVIDIA, то есть это не малая компания:</p>
+<blockquote>
+<p>«it has been reported that pre-orders for Microduck have exceeded 20,000 units.» — <a href="https://gigazine.net/gsc_news/en/20261024-nvidia-ceo-plays-microduck-20000-sell/">gigazine.net</a></p>
+<p>«The selling price is $399 (approximately 62,600 yen) excluding tax and shipping.» — <a href="https://gigazine.net/gsc_news/en/20261024-nvidia-ceo-plays-microduck-20000-sell/">gigazine.net</a></p>
+</blockquote>
+</li>
+<li>
+<p><strong>Рост рынка:</strong> данных не найдено (мир, РФ).</p>
+</li>
+<li><strong>Россия:</strong> аналоги не найдены; барьер — сервоприводы и платы придётся закупать в Китае, а без громкого запуска спрос на такую игрушку не возникнет; применимость <strong>низкая</strong> — нужны дизайн, серийное производство и розничный маркетинг, слабые стороны профиля.</li>
+</ul>
+<h2>Идея дня</h2>
+<p>Гипотеза: корпоративный ИИ-шлюз для российских компаний, которые используют сразу несколько моделей (GigaChat, YandexGPT, открытые модели на своих серверах). Продаём установку в контур заказчика: один адрес для всех моделей, маскирование персональных данных до отправки во внешнюю модель, лимиты по отделам и журнал запросов для службы безопасности. Зарабатываем на внедрении и годовой поддержке, основу берём из открытых шлюзов вроде Respan. Почему сейчас: у компаний становится больше одного ИИ-сценария, а требования к персональным данным не дают отправлять запросы во внешние сервисы без контроля.</p><nav class="pager"><a href="../2026-10-26/">← 2026-10-26</a><a href="../2026-10-28/">2026-10-28 →</a></nav>
+</main>
+<footer>Сигналы собирает и проверяет AI-агент. Цифры подкреплены цитатами из источников;
+«Оценка» и «Почему интересно» — мнение модели, не факт.</footer>
+</body></html>
